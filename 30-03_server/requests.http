@@ -1,7 +1,7 @@
-### Trazer Tudo O Que Existe:
+### Trazer tudo
 GET http://localhost:3001/tarefas
 
-### Criar uma nova tarefa
+### Criar nova tarefa
 POST http://localhost:3001/tarefas
 Content-Type: application/json
 
@@ -10,10 +10,10 @@ Content-Type: application/json
     "concluido": false
 }
 
-### Buscar detalhes de uma tarefa específica pelo ID
+### Buscar por ID
 GET http://localhost:3001/tarefas/1
 
-### Atualizar a descrição e marcar como concluída de uma tarefa específica pelo ID
+### Atualizar tarefa
 PATCH http://localhost:3001/tarefas/1
 Content-Type: application/json
 
@@ -21,3 +21,26 @@ Content-Type: application/json
     "descricao": "Fazer compras no mercado noturno e limpar o pátio",
     "concluido": true
 }
+
+### Buscar por descrição
+GET http://localhost:3001/tarefas?busca=compras
+
+### Buscar apenas concluídas
+GET http://localhost:3001/tarefas?concluido=true
+
+### Busca combinada
+GET http://localhost:3001/tarefas?busca=estudar&concluido=false
+
+### Testar validação (erro esperado)
+POST http://localhost:3001/tarefas
+Content-Type: application/json
+
+{
+    "concluido": false
+}
+
+### Toggle (concluir/desconcluir)
+PATCH http://localhost:3001/tarefas/1/concluir
+
+### Resumo estatístico
+GET http://localhost:3001/tarefas/resumo
