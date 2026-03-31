@@ -1,0 +1,23 @@
+### Trazer Tudo O Que Existe:
+GET http://localhost:3001/tarefas
+
+### Criar uma nova tarefa
+POST http://localhost:3001/tarefas
+Content-Type: application/json
+
+{
+    "descricao": "Tarefa 4",
+    "concluido": false
+}
+
+### Buscar detalhes de uma tarefa específica pelo ID
+GET http://localhost:3001/tarefas/1
+
+### Atualizar a descrição e marcar como concluída de uma tarefa específica pelo ID
+PATCH http://localhost:3001/tarefas/1
+Content-Type: application/json
+
+{
+    "descricao": "Fazer compras no mercado noturno e limpar o pátio",
+    "concluido": true
+}
