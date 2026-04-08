@@ -1,0 +1,19 @@
+{
+  "name": "roteiro_04",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
+  },
+  "keywords": [],
+  "dependencies": {
+    "@fastify/cors": "^11.2.0",
+    "fastify": "^5.8.4"
+  }
+}

@@ -1,0 +1,58 @@
+### Listar todas as tarefas
+GET http://localhost:3000/tarefas
+Accept: application/json
+
+###
+
+### Listar tarefas com busca (ex: "carro")
+GET http://localhost:3000/tarefas?busca=carro
+Accept: application/json
+
+###
+
+### Listar tarefas concluídas
+GET http://localhost:3000/tarefas?concluido=true
+Accept: application/json
+
+###
+
+### Criar uma nova tarefa
+POST http://localhost:3000/tarefas
+Content-Type: application/json
+
+{
+  "descricao": "Aprender Node.js"
+}
+
+###
+
+### Buscar tarefa por ID (ex: id 1)
+GET http://localhost:3000/tarefas/1
+Accept: application/json
+
+###
+
+### Atualizar tarefa por ID (ex: id 1)
+PATCH http://localhost:3000/tarefas/1
+Content-Type: application/json
+
+{
+  "descricao": "Fazer compras no supermercado"
+}
+
+###
+
+### Alternar status de conclusão da tarefa (ex: id 1)
+PATCH http://localhost:3000/tarefas/1/concluir
+Accept: application/json
+
+###
+
+### Deletar tarefa por ID (ex: id 1)
+DELETE http://localhost:3000/tarefas/1
+
+###
+
+### Resumo das tarefas
+GET http://localhost:3000/tarefas/resumo
+Accept: application/json
