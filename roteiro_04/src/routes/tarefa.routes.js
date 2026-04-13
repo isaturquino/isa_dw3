@@ -1,4 +1,13 @@
-import { listarTarefas } from "../controllers/tarefa.controller.js";
+import {
+  listarTarefas,
+  criarTarefa,
+  obterResumo,
+  obterTarefa,
+  atualizarTarefa,
+  concluirTarefa,
+  removerTarefa,
+  listarTarefasPendentes,
+} from "../controllers/tarefa.controller.js";
 
 export default async function tarefaRoutes(server, options) {
 
@@ -40,4 +49,9 @@ export default async function tarefaRoutes(server, options) {
     console.log("Routes: DELETE /tarefas/:id chamada");
     removerTarefa(request, reply);
   });
+
+  server.get("/tarefas/pendentes", async (request, reply) => {
+  console.log("Routes: GET /tarefas/pendentes chamada");
+  return listarTarefasPendentes(request, reply);
+});
 }

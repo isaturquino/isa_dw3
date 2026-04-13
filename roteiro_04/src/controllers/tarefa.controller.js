@@ -1,121 +1,136 @@
-// @file: src/ROUTES/tarefa.routes.js
+import {
+  listar,
+  criar,
+  buscarPorId,
+  atualizar,
+  alternarConcluido,
+  remover,
+  obterResumo as obterResumoModel,
+  listarPendentes,
+} from "../models/tarefa.model.js";
 
-// DADOS (array de tarefas) - movido para o controlador para ser acessado no processamento das requisições
-const tarefas = [
-  { id: 1, descricao: "Fazer compras", concluido: false },
-  { id: 2, descricao: "Lavar o carro", concluido: false },
-  { id: 3, descricao: "Estudar Fastify", concluido: true },
-];
-
-// Processa requisições da rota `GET /tarefas`
+// GET /tarefas
 export async function listarTarefas(request, reply) {
   // LOG para indicar que a função foi chamada
   console.log("Controller: listarTarefas chamado");
 
   const { busca, concluido } = request.query;
-  let resultado = tarefas;
-  if (busca) {
-    resultado = resultado.filter((t) =>
-      t.descricao.toLowerCase().includes(busca.toLowerCase()),
-    );
-  }
-  if (concluido !== undefined) {
-    const concluidoBool = concluido === "true";
-    resultado = resultado.filter((t) => t.concluido === concluidoBool);
-  }
+
+  const resultado = await listar({ busca, concluido });
+
   return reply.send(resultado);
 }
 
-// Processa requisições da rota `POST /tarefas`
+// POST /tarefas
 export async function criarTarefa(request, reply) {
+  // LOG para indicar que a função foi chamada
   console.log("Controller: criarTarefa chamado");
 
-    const { descricao } = request.body;
-    if (!descricao || descricao.trim() === "") {
-      return reply.status(400).send({
-        status: "error",
-        message: "A descrição da tarefa é obrigatória",
-      });
-    }
-    const novoId = tarefas.length > 0 ? tarefas[tarefas.length - 1].id + 1 : 1;
-    const novaTarefa = { id: novoId, descricao, concluido: false };
+  const { descricao } = request.body;
 
-    tarefas.push(novaTarefa);
-    return reply.status(201).send(novaTarefa);
-}
-
-// Processa requisições da rota `GET /tarefas/resumo`
-export async function obterResumo(request, reply) {
-    console.log("Controller: obterResumo chamado");
-    const total = tarefas.length;
-    const concluidas = tarefas.filter((t) => t.concluido).length;
-    const pendentes = total - concluidas;
-
-    return reply.send({
-      total,
-      concluidas,
-      pendentes,
+  if (!descricao || descricao.trim() === "") {
+    return reply.status(400).send({
+      status: "error",
+      message: "A descrição da tarefa é obrigatória",
     });
+  }
+
+  const novaTarefa = await criar(descricao);
+
+  return reply.status(201).send(novaTarefa);
 }
 
-// Processa requisições da rota `GET /tarefas/:id`
+// GET /tarefas/resumo
+export async function obterResumo(request, reply) {
+  // LOG para indicar que a função foi chamada
+  console.log("Controller: obterResumo chamado");
+
+  const resumo = await obterResumoModel();
+
+  return reply.send(resumo);
+}
+
+// GET /tarefas/:id
 export async function obterTarefa(request, reply) {
-    console.log("Controller: obterTarefa chamado");
-    const id = Number(request.params.id);
-    const tarefa = tarefas.find((t) => t.id === id);
-    if (!tarefa) {
-        return reply
-            .status(404)
-            .send({ status: "error", message: "Tarefa não encontrada" });
-    }
+  // LOG para indicar que a função foi chamada 
+  console.log("Controller: obterTarefa chamado");
 
-    return reply.send(tarefa);
+  const id = Number(request.params.id);
+
+  const tarefa = await buscarPorId(id);
+
+  if (!tarefa) {
+    return reply.status(404).send({
+      status: "error",
+      message: "Tarefa não encontrada",
+    });
+  }
+
+  return reply.send(tarefa);
 }
 
-// Processa requisições da rota `PATCH /tarefas/:id`
+// PATCH /tarefas/:id
 export async function atualizarTarefa(request, reply) {
-    console.log("Controller: atualizarTarefa chamado");
-    const id = Number(request.params.id);
-    const index = tarefas.findIndex((t) => t.id === id);
-    if (index === -1) {
-        return reply
-            .status(404)
-            .send({ status: "error", message: "Tarefa não encontrada" });
-    }
-    const tarefaAtualizada = request.body;
-    tarefas[index] = { ...tarefas[index], ...tarefaAtualizada, id };
+  // LOG para indicar que a função foi chamada 
+  console.log("Controller: atualizarTarefa chamado");
 
-    return reply.send(tarefas[index]);
+  const id = Number(request.params.id);
+
+  const tarefaAtualizada = await atualizar(id, request.body);
+
+  if (!tarefaAtualizada) {
+    return reply.status(404).send({
+      status: "error",
+      message: "Tarefa não encontrada",
+    });
+  }
+
+  return reply.send(tarefaAtualizada);
 }
 
-// Processa requisições da rota `PATCH /tarefas/:id/concluir`
+// PATCH /tarefas/:id/concluir
 export async function concluirTarefa(request, reply) {
-    console.log("Controller: concluirTarefa chamado");
-    const id = Number(request.params.id);
-    const index = tarefas.findIndex((t) => t.id === id);
+  // LOG para indicar que a função foi chamada 
+  console.log("Controller: concluirTarefa chamado");
 
-    if (index === -1) {
-      return reply
-        .status(404)
-        .send({ status: "error", message: "Tarefa não encontrada" });
-    }
+  const id = Number(request.params.id);
 
-    tarefas[index].concluido = !tarefas[index].concluido;
-    return reply.send(tarefas[index]);
+  const tarefa = await alternarConcluido(id);
+
+  if (!tarefa) {
+    return reply.status(404).send({
+      status: "error",
+      message: "Tarefa não encontrada",
+    });
+  }
+
+  return reply.send(tarefa);
 }
 
-// Processa requisições da rota `DELETE /tarefas/:id`
+// DELETE /tarefas/:id
 export async function removerTarefa(request, reply) {
-    console.log("Controller: removerTarefa chamado");
-    const id = Number(request.params.id);
-    const index = tarefas.findIndex((t) => t.id === id);
+  // LOG para indicar que a função foi chamada 
+  console.log("Controller: removerTarefa chamado");
 
-    if (index === -1) {
-      return reply
-        .status(404)
-        .send({ status: "error", message: "Tarefa não encontrada" });
-    }
+  const id = Number(request.params.id);
 
-    tarefas.splice(index, 1);
-    return reply.status(204).send();
+  const removido = await remover(id);
+
+  if (!removido) {
+    return reply.status(404).send({
+      status: "error",
+      message: "Tarefa não encontrada",
+    });
+  }
+
+  return reply.status(204).send();
+}
+
+// GET /tarefas/pendentes
+export async function listarTarefasPendentes(request, reply) {
+  console.log("Controller: listarTarefasPendentes chamado");
+
+  const resultado = await listarPendentes();
+
+  return reply.send(resultado);
 }

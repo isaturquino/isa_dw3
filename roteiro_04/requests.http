@@ -1,58 +1,59 @@
-### Listar todas as tarefas
-GET http://localhost:3000/tarefas
-Accept: application/json
 
-###
+@url = http://localhost:3000
 
-### Listar tarefas com busca (ex: "carro")
-GET http://localhost:3000/tarefas?busca=carro
-Accept: application/json
+### Busca todas as tarefas
+GET {{url}}/tarefas
 
-###
 
-### Listar tarefas concluídas
-GET http://localhost:3000/tarefas?concluido=true
-Accept: application/json
+### Busca uma tarefa específica por ID
+GET {{url}}/tarefas/4
 
-###
 
-### Criar uma nova tarefa
-POST http://localhost:3000/tarefas
+### Criando uma nova tarefa
+POST {{url}}/tarefas
 Content-Type: application/json
 
 {
-  "descricao": "Aprender Node.js"
+    "id": 4,
+    "descricao": "Tarefa 4",
+    "concluido": false
 }
 
-###
 
-### Buscar tarefa por ID (ex: id 1)
-GET http://localhost:3000/tarefas/1
-Accept: application/json
-
-###
-
-### Atualizar tarefa por ID (ex: id 1)
-PATCH http://localhost:3000/tarefas/1
+### Atualizando parcialmente uma tarefa (PATCH)
+PATCH {{url}}/tarefas/1
 Content-Type: application/json
 
 {
-  "descricao": "Fazer compras no supermercado"
+    "descricao": "Fazer compras no mercado",
+    "concluido": true
 }
 
-###
 
-### Alternar status de conclusão da tarefa (ex: id 1)
-PATCH http://localhost:3000/tarefas/1/concluir
-Accept: application/json
+### Excluindo uma tarefa
+DELETE {{url}}/tarefas/1
 
-###
 
-### Deletar tarefa por ID (ex: id 1)
-DELETE http://localhost:3000/tarefas/1
+### Buscando tarefas por Query String (Filtro)
+GET {{url}}/tarefas?busca=estudar
 
-###
 
-### Resumo das tarefas
-GET http://localhost:3000/tarefas/resumo
-Accept: application/json
+### Alternar o status da tarefa de ID 1
+PATCH {{url}}/tarefas/3/concluir
+
+
+### Resumo/Estatísticas das tarefas
+GET {{url}}/tarefas/resumo
+
+
+### Forçando erro 404 no NotFoundHandler
+GET {{url}}/batata-frita
+
+
+### Testar validação (enviando sem descrição)
+POST {{url}}/tarefas
+Content-Type: application/json
+
+{
+    "concluido": false
+}
