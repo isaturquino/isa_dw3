@@ -1,0 +1,59 @@
+
+@url = http://localhost:3000
+
+### Busca todas as tarefas
+GET {{url}}/tarefas
+
+
+### Busca uma tarefa específica por ID
+GET {{url}}/tarefas/4
+
+
+### Criando uma nova tarefa
+POST {{url}}/tarefas
+Content-Type: application/json
+
+{
+    "id": 4,
+    "descricao": "Tarefa 4",
+    "concluido": false
+}
+
+
+### Atualizando parcialmente uma tarefa (PATCH)
+PATCH {{url}}/tarefas/1
+Content-Type: application/json
+
+{
+    "descricao": "Fazer compras no mercado",
+    "concluido": true
+}
+
+
+### Excluindo uma tarefa
+DELETE {{url}}/tarefas/1
+
+
+### Buscando tarefas por Query String (Filtro)
+GET {{url}}/tarefas?busca=estudar
+
+
+### Alternar o status da tarefa de ID 1
+PATCH {{url}}/tarefas/3/concluir
+
+
+### Resumo/Estatísticas das tarefas
+GET {{url}}/tarefas/resumo
+
+
+### Forçando erro 404 no NotFoundHandler
+GET {{url}}/batata-frita
+
+
+### Testar validação (enviando sem descrição)
+POST {{url}}/tarefas
+Content-Type: application/json
+
+{
+    "concluido": false
+}
