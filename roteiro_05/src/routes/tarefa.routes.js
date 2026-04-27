@@ -19,7 +19,7 @@ export default async function tarefaRoutes(server) {
     controller.obterResumo(request, reply)
   })
 
-  // ✅ NOVA ROTA (IMPORTANTE: antes de /:id)
+  //  NOVA ROTA (IMPORTANTE: antes de /:id)
   server.get('/tarefas/pendentes', async (request, reply) => {
     console.log("Routes: GET /tarefas/pendentes chamada")
     controller.obterPendentes(request, reply)

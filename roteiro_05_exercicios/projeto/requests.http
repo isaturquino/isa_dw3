@@ -1,0 +1,42 @@
+### BASE URL
+@baseUrl = http://localhost:3000
+### GET - Listar todos os produtos
+GET {{baseUrl}}/produtos
+Content-Type: application/json
+
+
+### GET - Buscar produto por ID
+GET {{baseUrl}}/produtos/1
+Content-Type: application/json
+
+
+### POST - Criar produto (válido)
+POST {{baseUrl}}/produtos
+Content-Type: application/json
+
+{
+  "nome": "Teclado",
+  "preco": 200
+}
+
+### POST - Criar produto (inválido - sem body)
+POST {{baseUrl}}/produtos
+Content-Type: application/json
+
+### POST - Criar produto (inválido - dados errados)
+POST {{baseUrl}}/produtos
+Content-Type: application/json
+
+{
+  "nome": "",
+  "preco": -5
+}
+
+
+### DELETE - Remover produto
+DELETE {{baseUrl}}/produtos/1
+Content-Type: application/json
+
+### GET - Testar se foi removido
+GET {{baseUrl}}/produtos/1
+Content-Type: application/json
