@@ -1,0 +1,68 @@
+@url = http://localhost:3000
+
+### Buscar todas as tarefas
+GET {{url}}/tarefas
+
+
+### Buscar tarefa por ID
+GET {{url}}/tarefas/1
+
+
+### Buscar tarefas pendentes
+GET {{url}}/tarefas/pendentes
+
+
+### Buscar tarefas por texto
+GET {{url}}/tarefas?busca=estudar
+
+
+### Buscar tarefas concluídas
+GET {{url}}/tarefas?concluido=true
+
+
+### Buscar tarefas pendentes usando query string
+GET {{url}}/tarefas?concluido=false
+
+
+### Criar nova tarefa
+POST {{url}}/tarefas
+Content-Type: application/json
+
+{
+  "descricao": "Estudar arquitetura Service Repository"
+}
+
+
+### Atualizar tarefa
+PATCH {{url}}/tarefas/1
+Content-Type: application/json
+
+{
+  "descricao": "Fazer compras no mercado",
+  "concluido": true
+}
+
+
+### Alternar status da tarefa
+PATCH {{url}}/tarefas/3/concluir
+
+
+### Remover tarefa
+DELETE {{url}}/tarefas/1
+
+
+### Obter resumo das tarefas
+GET {{url}}/tarefas/resumo
+
+
+### Testar validação sem descrição
+POST {{url}}/tarefas
+Content-Type: application/json
+
+{
+  "concluido": false
+}
+
+
+### Testar rota inexistente (404)
+GET {{url}}/batata-frita
