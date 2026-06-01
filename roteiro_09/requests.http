@@ -1,0 +1,15 @@
+### Buscar produto existente
+
+GET http://localhost:3000/produtos/1
+
+###
+
+### Buscar produto inexistente
+
+GET http://localhost:3000/produtos/99
+
+###
+
+### Buscar produto com ID inválido
+
+GET http://localhost:3000/produtos/abc

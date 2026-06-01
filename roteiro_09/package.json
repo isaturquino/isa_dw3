@@ -1,5 +1,5 @@
 {
-  "name": "roteiro_08",
+  "name": "roteiro_09",
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
@@ -14,5 +14,8 @@
   "dependencies": {
     "@fastify/cors": "^11.2.0",
     "fastify": "^5.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
