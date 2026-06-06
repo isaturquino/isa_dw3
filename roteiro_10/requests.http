@@ -1,0 +1,31 @@
+# # GET http://127.0.0.1:3000/laboratorio/tarefas-db
+
+
+# # POST http://127.0.0.1:3000/laboratorio/tarefas-db
+# # Content-Type: application/json
+
+# # {
+# #   "descricao": "Teste REST Client"
+# # }
+
+# POST http://localhost:3000/laboratorio/tarefas-db
+# Content-Type: application/json
+
+# {
+#   "descricao": "Estudar PostgreSQL"
+# }
+
+# # POST http://localhost:3000/laboratorio/tarefas-db
+# # Content-Type: application/json
+
+# # {
+# #   "descricao": "Aprender Fastify"
+# # }
+
+# POST http://localhost:3000/laboratorio/tarefas-db
+# Content-Type: application/json
+
+# {
+#   "descricao": "Praticar API REST"
+# }
+GET http://localhost:3000/laboratorio/tarefas-db
