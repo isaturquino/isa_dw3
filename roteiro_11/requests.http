@@ -1,0 +1,30 @@
+### 1. Listar tarefas
+GET <http://localhost:3000/tarefas>
+
+### 2. Criar uma tarefa
+POST <http://localhost:3000/tarefas>
+Content-Type: application/json
+
+{
+  "descricao": "Persistir pela rota oficial da API"
+}
+
+### 3. Buscar por ID
+GET <http://localhost:3000/tarefas/1>
+
+### 4. Atualizar
+PATCH <http://localhost:3000/tarefas/1>
+Content-Type: application/json
+
+{
+  "concluido": true
+}
+
+
+### 5. Remover
+DELETE <http://localhost:3000/tarefas/1>
+
+### 6. Reiniciar a aplicação
+Pare o servidor, inicie novamente e repita a listagem:
+
+GET <http://localhost:3000/tarefas>
