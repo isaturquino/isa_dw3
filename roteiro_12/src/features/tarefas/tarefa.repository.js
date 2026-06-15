@@ -46,18 +46,20 @@ export class TarefaRepository {
     return resultado.rows[0] ?? null;
   }
 
-  async salvar(tarefa) {
-    const resultado = await pool.query(
-      `
-      INSERT INTO tarefas (descricao, concluido)
-      VALUES ($1, $2)
-      RETURNING id, descricao, concluido, criada_em
-    `,
-      [tarefa.descricao, tarefa.concluido],
-    );
 
-    return resultado.rows[0];
-  }
+  async salvar(tarefa) {
+  const resultado = await pool.query(
+    `
+      INSERT INTO tarefas (descricao, concluido, projeto_id)
+      VALUES ($1, $2, $3)
+      RETURNING id, descricao, concluido, criada_em, projeto_id
+    `,
+    [tarefa.descricao, tarefa.concluido, tarefa.projetoId]
+  )
+
+  return resultado.rows[0]
+}
+
 
   async atualizar(id, dadosAtualizados) {
     const tarefaAtual = await this.buscarPorId(id);

@@ -1,0 +1,42 @@
+### 1. Listar tarefas
+GET <http://localhost:3000/tarefas>
+
+### 2. Criar uma tarefa com pool
+POST http://localhost:3000/tarefas
+Content-Type: application/json
+
+{
+  "descricao": "Testar a API usando Pool"
+}
+
+### 3. Buscar por ID
+GET <http://localhost:3000/tarefas/1>
+
+### 4. Atualizar
+PATCH <http://localhost:3000/tarefas/1>
+Content-Type: application/json
+
+{
+  "concluido": true
+}
+
+### 5. Remover
+DELETE <http://localhost:3000/tarefas/1>
+
+### 7. Criar uma tarefa associada a um projeto
+POST http://localhost:3000/tarefas
+Content-Type: application/json
+
+{
+  "descricao": "Criar integração entre projetos e tarefas",
+  "projetoId": 1
+}
+
+### 8. Listar tarefas de um projeto
+GET http://localhost:3000/tarefas
+
+### 9. Listar tarefas de um projeto específico
+GET http://localhost:3000/projetos/1/tarefas
+
+### 10.
+GET /projetos/:id/tarefas
