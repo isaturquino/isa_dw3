@@ -1,5 +1,4 @@
 
-
 ## Exercício 4 — Respostas
 
 ### 1. JOINs com intenção
