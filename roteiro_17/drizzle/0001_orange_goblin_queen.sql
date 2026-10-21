@@ -1,0 +1,1 @@
+ALTER TABLE "tarefas" ADD COLUMN "prioridade" text DEFAULT 'media';
